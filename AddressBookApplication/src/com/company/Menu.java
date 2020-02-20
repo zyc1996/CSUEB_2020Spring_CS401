@@ -96,8 +96,10 @@ public class Menu {
              * */
             AddressBook removeOption = new AddressBook();
             for (int i = 0; i < ab.addressCount; i++) {
-                if (ab.getAE(i).getLastName().equals(lastName)) {
-                    removeOption.add(ab.getAE(i));
+                if(ab.getAE(i).getLastName().length()>=lastName.length()) {
+                    if (ab.getAE(i).getLastName().substring(0, lastName.length()).equals(lastName)) {
+                        removeOption.add(ab.getAE(i));
+                    }
                 }
             }
 
@@ -106,29 +108,44 @@ public class Menu {
                 removeOption.list();
                 System.out.print('>');
 
-                /** user enters the number for which entries to remove
-                 * */
-                int removeNum = input.nextInt() - 1;
-                System.out.println("Hit y to remove the following entry or n to return to main menu: ");
-                System.out.println(removeOption.getAE(removeNum).toString());
-                System.out.print('>');
-                /** user enter confirmation
+                /** a string to do integer input check and parsing
                  *
                  */
-                char confirmation = Character.toUpperCase(input.next().charAt(0));
-                switch (confirmation) {
-                    case 'Y': {
-                        ab.removal(removeOption.getAE(removeNum));
-                        System.out.println("You have successfully removed the " + removeOption.getAE(removeNum).getFirstName() + " " + removeOption.getAE(removeNum).getLastName() + " contact");
-                        break;
+                String inputCheck = input.next();
+                /** user enters the number for which entries to remove
+                 * */
+                int removeNum ;
+                if (numCheck(inputCheck)) {
+                    removeNum = Integer.parseInt(inputCheck);
+                    if(removeNum <= removeOption.getAddressCount()) {
+                        removeNum--;
+                        System.out.println("Hit y to remove the following entry or n to return to main menu: ");
+                        System.out.println(removeOption.getAE(removeNum).toString());
+                        System.out.print('>');
+                        /** user enter confirmation
+                         *
+                         */
+                        char confirmation = Character.toUpperCase(input.next().charAt(0));
+                        switch (confirmation) {
+                            case 'Y': {
+                                ab.removal(removeOption.getAE(removeNum));
+                                System.out.println("You have successfully removed the " + removeOption.getAE(removeNum).getFirstName() + " " + removeOption.getAE(removeNum).getLastName() + " contact");
+                                break;
+                            }
+                            case 'N': {
+                                System.out.println("Request Canceled, return to menu");
+                                break;
+                            }
+                            default: {
+                                System.out.println("Invalid input, aborts method and returns to menu");
+                            }
+                        }
                     }
-                    case 'N': {
-                        System.out.println("Request Canceled, return to menu");
-                        break;
+                    else{
+                        System.out.println("Invalid number entry, abort method back to menu");
                     }
-                    default: {
-                        System.out.println("Invalid input, aborts method and returns to menu");
-                    }
+                } else {
+                    System.out.println("Invalid number entry, abort method back to menu");
                 }
             } else {
                 System.out.println("No matching Name Found");
