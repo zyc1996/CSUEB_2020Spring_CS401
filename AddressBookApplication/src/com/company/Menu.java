@@ -213,9 +213,9 @@ public class Menu {
      * the user's input
      *
      * @param input the scanner for user input
-     * @returns a string containing first name
+     * @return a string containing first name
      */
-    static String prompt_FirstName(Scanner input) {
+    public static String prompt_FirstName(Scanner input) {
         System.out.println("First Name: ");
         System.out.print('>');
         String firstName = input.next();
@@ -227,9 +227,9 @@ public class Menu {
      * the user's input
      *
      * @param input the scanner for user input
-     * @returns a string containing last name
+     * @return a string containing last name
      */
-    static String prompt_LastName(Scanner input) {
+    public static String prompt_LastName(Scanner input) {
         System.out.println("Last Name");
         System.out.print('>');
         String lastName = input.next();
@@ -241,9 +241,9 @@ public class Menu {
      * the user's input
      *
      * @param input the scanner for user input
-     * @returns a string containing street name
+     * @return a string containing street name
      */
-    static String prompt_Street(Scanner input) {
+    public static String prompt_Street(Scanner input) {
         System.out.println("Street: ");
         System.out.print('>');
         String street = input.next();
@@ -255,9 +255,9 @@ public class Menu {
      * the user's input
      *
      * @param input the scanner for user input
-     * @returns a string containing city name
+     * @return a string containing city name
      */
-    static String prompt_City(Scanner input) {
+    public static String prompt_City(Scanner input) {
         System.out.println("City: ");
         System.out.print('>');
         String city = input.next();
@@ -269,9 +269,9 @@ public class Menu {
      * the user's input
      *
      * @param input the scanner for user input
-     * @returns a string containing state name
+     * @return a string containing state name
      */
-    static String prompt_State(Scanner input) {
+    public static String prompt_State(Scanner input) {
         System.out.println("State: ");
         System.out.print('>');
         String state = input.next();
@@ -283,9 +283,9 @@ public class Menu {
      * the user's input
      *
      * @param input the scanner for user input
-     * @returns an integer containing zip code
+     * @return an integer containing zip code
      */
-    static int prompt_Zip(Scanner input) {
+    public static int prompt_Zip(Scanner input) {
         /** a correct input validation bool, false = stays in the loop, true = exit
          *
          */
@@ -320,7 +320,7 @@ public class Menu {
      * @param input the test string
      * @return true if it contains integer, false if not
      */
-    static boolean numCheck(String input) {
+    public static boolean numCheck(String input) {
         if (input == null) {
             return false;
         }
@@ -337,9 +337,9 @@ public class Menu {
      * the user's input
      *
      * @param input the scanner for user input
-     * @returns a string containing phone number
+     * @return a string containing phone number
      */
-    static String prompt_Telephone(Scanner input) {
+    public static String prompt_Telephone(Scanner input) {
         System.out.println("Phone: xxx-aaa-bbbb");
         System.out.print('>');
         String phone = input.next();
@@ -351,9 +351,9 @@ public class Menu {
      * the user's input
      *
      * @param input the scanner for user input
-     * @returns a string containing email address
+     * @return a string containing email address
      */
-    static String prompt_Email(Scanner input) {
+    public static String prompt_Email(Scanner input) {
         System.out.println("Email: ");
         System.out.print('>');
         String email = input.next();
