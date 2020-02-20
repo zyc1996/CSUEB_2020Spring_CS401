@@ -71,6 +71,7 @@ public class Menu {
         /**create a new address entry to be added to the address book
          * */
         AddressEntry newAdd = new AddressEntry(prompt_FirstName(input), prompt_LastName(input), prompt_Street(input), prompt_City(input), prompt_State(input), prompt_Zip(input), prompt_Telephone(input), prompt_Email(input));
+
         ab.add(newAdd);
         System.out.println("The following content has been added to your address Book:");
         System.out.println(newAdd.toString());
