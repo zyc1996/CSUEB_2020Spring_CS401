@@ -16,6 +16,8 @@ public class AddressBookApplication {
     /**
      * this is the main function that serves most of the user interaction
      * and other methods calling
+     * @param args main function
+     * @throws FileNotFoundException if file not found
      */
     public static void main(String[] args) throws FileNotFoundException {
         /** the initialization of an empty addressbook array for the use
@@ -84,7 +86,8 @@ public class AddressBookApplication {
      *
      * @param fileName the name of file to perform I/O from
      * @param ab       the address book array
-     * @returns how many addresses has been read in
+     * @return how many addresses has been read in
+     * @throws FileNotFoundException if it is not found, the try catch in the other function block handles it
      */
     public static int init(String fileName, AddressBook ab) throws FileNotFoundException {
 
@@ -112,9 +115,9 @@ public class AddressBookApplication {
             city = sc.nextLine();
             state = sc.nextLine();
             zip = Integer.parseInt(sc.nextLine());
-            phone = sc.nextLine();
             email = sc.nextLine();
-            AddressEntry readinEntry = new AddressEntry(firstName, lastName, street, city, state, zip, phone, email);
+            phone = sc.nextLine();
+            AddressEntry readinEntry = new AddressEntry(firstName, lastName, street, city, state, zip, email, phone);
             ab.add(readinEntry);
             readinCounter++;
         }

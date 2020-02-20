@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 /**
@@ -53,12 +54,14 @@ public class AddressBook {
 
     /**
      * add new addressEntry object to the addressEntryList
+     * calls the sort method after to sort by alphabetical order of first name
      *
      * @param ae an AddressEntry object
      */
     public void add(AddressEntry ae) {
         addressEntryList.add(ae);
         addressCount++;
+        Collections.sort(addressEntryList,AddressEntry.firstNameComp);
     }
 
     /**
@@ -73,6 +76,7 @@ public class AddressBook {
     /**
      * a method that removes an addressbook entry from the addressbook list
      * by the user's given last name
+     * @param ae an address entry
      */
     public void removal(AddressEntry ae) {
         addressEntryList.remove(ae);
@@ -81,6 +85,8 @@ public class AddressBook {
 
     /**
      * a method that returns an addressEntry by their index
+     * @param index the index to find an entry in the addressbook
+     * @return the address entry found
      */
     public AddressEntry getAE(int index) {
         return addressEntryList.get(index);

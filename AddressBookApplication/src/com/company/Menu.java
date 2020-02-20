@@ -34,6 +34,10 @@ public class Menu {
     /**
      * a method that ask user for the file name and performs a I/O operation
      * to load the data into AddressEntry object and adds to the AddressBook
+     *
+     * @param ab    the addressBook arraylist
+     * @param input the scanner for user input
+     * @throws FileNotFoundException if file not found
      */
     public static void loadingFromFile(AddressBook ab, Scanner input) throws FileNotFoundException {
         System.out.println("Enter in file name:");
@@ -43,15 +47,25 @@ public class Menu {
          *
          */
         String fileName = input.next();
-        /** this holds how many address(es) has been read in
-         * */
-        int addressCounter = AddressBookApplication.init(fileName, ab);
-        System.out.println("Read in " + addressCounter + " new Address(es), successfully loaded, currently " + ab.getAddressCount());
+        /** throws an exception if entered invalid file name
+         *
+         */
+        try {
+            /** this holds how many address(es) has been read in
+             * */
+            int addressCounter = AddressBookApplication.init(fileName, ab);
+            System.out.println("Read in " + addressCounter + " new Address(es), successfully loaded, currently " + ab.getAddressCount());
+        } catch (FileNotFoundException e) {
+            System.out.println("There is no file found with the name of: " + fileName);
+        }
     }
 
     /**
      * a method that ask user to input each individual attributes to form a
      * new AddressEntry object to be added to the AddressBook
+     *
+     * @param ab    the addressBook arraylist
+     * @param input the scanner for user input
      */
     public static void addition(AddressBook ab, Scanner input) {
         /**create a new address entry to be added to the address book
@@ -65,6 +79,9 @@ public class Menu {
     /**
      * a method that removes a selected AddressEntry from the existing
      * AddressBook array
+     *
+     * @param ab    the addressBook arraylist
+     * @param input the scanner for user input
      */
     public static void removal(AddressBook ab, Scanner input) {
         if (ab.getAddressCount() == 0) {
@@ -121,6 +138,9 @@ public class Menu {
 
     /**
      * a method that find and displays Entries that matches user input
+     *
+     * @param ab    the addressBook arraylist
+     * @param input the scanner for user input
      */
     public static void findEntry(AddressBook ab, Scanner input) {
         if (ab.getAddressCount() == 0) {
@@ -135,17 +155,26 @@ public class Menu {
              * */
             AddressBook foundEntries = new AddressBook();
             for (int i = 0; i < ab.addressCount; i++) {
-                if (ab.getAE(i).getLastName().substring(0,lastName.length()).equals(lastName)) {
-                    foundEntries.add(ab.getAE(i));
+                if(ab.getAE(i).getLastName().length()>=lastName.length()) {
+                    if (ab.getAE(i).getLastName().substring(0, lastName.length()).equals(lastName)) {
+                        foundEntries.add(ab.getAE(i));
+                    }
                 }
             }
-            System.out.println("The following " + foundEntries.getAddressCount() + " entries were found in the address book for a last name starting with: " + lastName);
-            foundEntries.list();
+            if(foundEntries.getAddressCount() != 0) {
+                System.out.println("The following " + foundEntries.getAddressCount() + " entries were found in the address book for a last name starting with: " + lastName);
+                foundEntries.list();
+            }
+            else{
+                System.out.println("No Matching Entry Found");
+            }
         }
     }
 
     /**
      * a method that displays every single AddressBook items
+     *
+     * @param ab the addressBook arraylist
      */
     public static void displayList(AddressBook ab) {
         System.out.println("Current Address Book contains:");
@@ -166,6 +195,7 @@ public class Menu {
      * various prompt method that returns an attribute part that is from
      * the user's input
      *
+     * @param input the scanner for user input
      * @returns a string containing first name
      */
     static String prompt_FirstName(Scanner input) {
@@ -179,6 +209,7 @@ public class Menu {
      * various prompt method that returns an attribute part that is from
      * the user's input
      *
+     * @param input the scanner for user input
      * @returns a string containing last name
      */
     static String prompt_LastName(Scanner input) {
@@ -192,6 +223,7 @@ public class Menu {
      * various prompt method that returns an attribute part that is from
      * the user's input
      *
+     * @param input the scanner for user input
      * @returns a string containing street name
      */
     static String prompt_Street(Scanner input) {
@@ -205,6 +237,7 @@ public class Menu {
      * various prompt method that returns an attribute part that is from
      * the user's input
      *
+     * @param input the scanner for user input
      * @returns a string containing city name
      */
     static String prompt_City(Scanner input) {
@@ -218,6 +251,7 @@ public class Menu {
      * various prompt method that returns an attribute part that is from
      * the user's input
      *
+     * @param input the scanner for user input
      * @returns a string containing state name
      */
     static String prompt_State(Scanner input) {
@@ -231,19 +265,61 @@ public class Menu {
      * various prompt method that returns an attribute part that is from
      * the user's input
      *
+     * @param input the scanner for user input
      * @returns an integer containing zip code
      */
     static int prompt_Zip(Scanner input) {
+        /** a correct input validation bool, false = stays in the loop, true = exit
+         *
+         */
+        boolean valid = false;
+        /** a temporary string that act as the medium to hand exceptions
+         *
+         */
+        String temp;
+        /** the zip code entry
+         *
+         */
+        int zip = 0;
         System.out.println("Zip: ");
         System.out.print('>');
-        int zip = input.nextInt();
+        while (!valid) {
+            temp = input.next();
+            valid = numCheck(temp);
+            if (valid) {
+                zip = Integer.parseInt(temp);
+            } else {
+                System.out.println("Invalid Zip code Entry, Please try again: ");
+                System.out.print('>');
+            }
+        }
+
         return zip;
+    }
+
+    /**
+     * a helper method that checks whether the input string is an integer
+     *
+     * @param input the test string
+     * @return true if it contains integer, false if not
+     */
+    static boolean numCheck(String input) {
+        if (input == null) {
+            return false;
+        }
+        try {
+            int test = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
     }
 
     /**
      * various prompt method that returns an attribute part that is from
      * the user's input
      *
+     * @param input the scanner for user input
      * @returns a string containing phone number
      */
     static String prompt_Telephone(Scanner input) {
@@ -257,6 +333,7 @@ public class Menu {
      * various prompt method that returns an attribute part that is from
      * the user's input
      *
+     * @param input the scanner for user input
      * @returns a string containing email address
      */
     static String prompt_Email(Scanner input) {
